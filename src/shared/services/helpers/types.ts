@@ -9,13 +9,11 @@ export interface Multilang {
 export interface ModalData {
   date: string;
   file_link: string;
-  href_name: string;
   img_url: string;
   label: Multilang;
   text: Multilang;
   title: Multilang;
-  type: string;
-  order: number;
+  order?: number;
 }
 
 export interface Todo extends ModalData {

@@ -16,12 +16,10 @@ export const Modal: React.FC<Props> = ({ isOpen, onClose, onSubmit, data, loadin
   const [formData, setFormData] = useState<ModalData>({
     date: '',
     file_link: '',
-    href_name: '',
     img_url: '',
     label: { en: '', ru: '', uz: '' },
     text: { en: '', ru: '', uz: '' },
     title: { en: '', ru: '', uz: '' },
-    type: '',
   });
 
   // ESC tugmasi bilan yopish
@@ -39,12 +37,10 @@ export const Modal: React.FC<Props> = ({ isOpen, onClose, onSubmit, data, loadin
       setFormData({
         date: '',
         file_link: '',
-        href_name: '',
         img_url: '',
         label: { en: '', ru: '', uz: '' },
         text: { en: '', ru: '', uz: '' },
         title: { en: '', ru: '', uz: '' },
-        type: 'news',
       });
     }
   }, [data, isOpen]);
@@ -72,7 +68,7 @@ export const Modal: React.FC<Props> = ({ isOpen, onClose, onSubmit, data, loadin
   };
 
   const handleSubmit = () => {
-    if (!formData.title.uz || !formData.type) {
+    if (!formData.title.uz || !formData.label.uz || !formData.text.uz || !formData.date) {
       alert('Majburiy maydonlar to‘ldirilishi kerak!');
       return;
     }
@@ -104,11 +100,9 @@ export const Modal: React.FC<Props> = ({ isOpen, onClose, onSubmit, data, loadin
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {[
             { label: 'Sana (date)', field: 'date' },
-            { label: 'Type *', field: 'type' },
             { label: 'File link', field: 'file_link' },
-            // { label: 'Href name', field: 'href_name' },
-            // { label: 'Image URL', field: 'img_url' },
-          ].map(({ label, field }) => (
+            { label: 'Image URL', field: 'img_url' },
+          ].map(({ label, field }) =>
             field === 'type' ? (
               <select
                 key={field}
@@ -130,8 +124,8 @@ export const Modal: React.FC<Props> = ({ isOpen, onClose, onSubmit, data, loadin
                 onChange={(e) => handleChange(field as keyof ModalData, e.target.value)}
                 className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
               />
-            )
-          ))}
+            ),
+          )}
         </div>
 
         {/* Multilang inputlar */}
@@ -139,7 +133,7 @@ export const Modal: React.FC<Props> = ({ isOpen, onClose, onSubmit, data, loadin
           <div key={field} className="mt-5">
             <label className="block text-sm font-medium capitalize mb-1">{field}</label>
             <div className="grid grid-cols-3 gap-2">
-              {(['uz', 'ru', 'en'] as LangType[]).map((lang) => (
+              {(['uz', 'ru', 'en'] as LangType[]).map((lang) =>
                 field === 'text' ? (
                   <textarea
                     key={lang}
@@ -157,8 +151,8 @@ export const Modal: React.FC<Props> = ({ isOpen, onClose, onSubmit, data, loadin
                     onChange={(e) => handleMultilangChange(field, lang, e.target.value)}
                     className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
                   />
-                )
-              ))}
+                ),
+              )}
             </div>
           </div>
         ))}

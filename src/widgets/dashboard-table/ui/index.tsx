@@ -3,13 +3,12 @@ import { Grab, Pencil, Trash } from 'lucide-react';
 import { FC, useCallback, useRef } from 'react';
 import { Todo } from 'shared/services';
 import { useDrop, useDrag, DndProvider } from 'react-dnd';
-import { HTML5toTouch,backendOptions  } from './dnd-backend';
+import { HTML5toTouch, backendOptions } from './dnd-backend';
 
 const columns = [
   { title: '', field: 'drag' },
   { title: '#', field: 'order' },
   { title: 'Title', field: 'title' },
-  { title: 'Type', field: 'type' },
   { title: 'Date', field: 'date' },
   { title: 'Actions', field: 'actions' },
 ];
@@ -62,9 +61,7 @@ const DraggableRow: FC<{
   return (
     <tr
       ref={ref}
-      className={`transition-colors duration-200 ${
-        isOver ? 'bg-blue-100' : 'hover:bg-gray-50'
-      }`}
+      className={`transition-colors duration-200 ${isOver ? 'bg-blue-100' : 'hover:bg-gray-50'}`}
     >
       <td className="px-2 py-2 w-6">
         <span ref={dragIconRef} className="cursor-move" title="Drag">
@@ -73,10 +70,7 @@ const DraggableRow: FC<{
       </td>
       <td className="px-4 py-2">{row?.order}</td>
       <td className="px-4 py-2">{row?.title?.uz}</td>
-      <td className="px-4 py-2">{row?.type}</td>
-      <td className="px-4 py-2">
-        {row?.date && dayjs(row.date).format('DD.MM.YYYY')}
-      </td>
+      <td className="px-4 py-2">{row?.date && dayjs(row.date).format('DD.MM.YYYY')}</td>
       <td className="px-4 py-2 flex gap-3">
         <Pencil
           className="w-5 h-5 text-orange-500 cursor-pointer"
@@ -85,10 +79,7 @@ const DraggableRow: FC<{
             setEditedData(row);
           }}
         />
-        <Trash
-          className="w-5 h-5 text-red-500 cursor-pointer"
-          onClick={() => onDelete(row.id)}
-        />
+        <Trash className="w-5 h-5 text-red-500 cursor-pointer" onClick={() => onDelete(row.id)} />
       </td>
     </tr>
   );
@@ -113,7 +104,7 @@ export const DashboardTable: FC<IProps> = ({
         onRowDrop(fromIndex, toIndex, draggedItem.id);
       }
     },
-    [onRowDrop, sortedRows]
+    [onRowDrop, sortedRows],
   );
 
   return (
@@ -123,10 +114,7 @@ export const DashboardTable: FC<IProps> = ({
           <thead className="bg-gray-100 border-b border-gray-200">
             <tr>
               {columns.map((column) => (
-                <th
-                  key={column.field}
-                  className="px-4 py-2 text-left text-gray-600 font-medium"
-                >
+                <th key={column.field} className="px-4 py-2 text-left text-gray-600 font-medium">
                   {column.title}
                 </th>
               ))}
