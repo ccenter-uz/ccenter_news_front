@@ -13,6 +13,7 @@ export interface ModalData {
   label: Multilang;
   text: Multilang;
   title: Multilang;
+  markdown: Multilang;
   order?: number;
 }
 
